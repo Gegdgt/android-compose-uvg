@@ -21,64 +21,31 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.zezzi.eventzezziapp.navigation.AppBar
-<<<<<<< Updated upstream
-=======
 import com.zezzi.eventzezziapp.navigation.NavigationState
 import com.zezzi.eventzezziapp.ui.common.CircularLoadingSpinner
->>>>>>> Stashed changes
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
-fun MealsCategoriesScreen(
+fun MealsScreen(
     navController: NavController,
-    viewModel: MealsCategoriesViewModel = viewModel()
+    category: String,
+    viewModel: MealsViewModel = viewModel()
 ) {
-<<<<<<< Updated upstream
-    LaunchedEffect(Unit){
-=======
-    if (viewModel.categoryUiState.categories.isEmpty()) {
->>>>>>> Stashed changes
-        viewModel.getMeals()
-    }
+    viewModel.getMealsByCategory(category)
 
     Scaffold(
         topBar = {
-            AppBar(title = "Categories", navController = navController)
+            AppBar(title = "Meals - $category", navController = navController)
         }
     ) {
-<<<<<<< Updated upstream
-        LazyColumn(
-            contentPadding = it,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            items(viewModel.meals.value) { meal ->
-                Card (
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(8.dp)
-                ){
-                    AsyncImage(
-                        model = meal.imageUrl,
-                        contentDescription = "Imagen")
-                    Spacer(
-                        modifier = Modifier.height(8.dp)
-                    )
-                    Text(
-                        text = meal.name,
-                        modifier = Modifier.padding(16.dp)
-                    )
-                    Text(
-                        text = meal.description,
-                        modifier = Modifier.padding(16.dp)
-                    )
-=======
-        if (viewModel.categoryUiState.loading) {
+        if (viewModel.mealsUiState.loading) {
             CircularLoadingSpinner()
         } else {
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
                 contentPadding = it,
             ) {
-                items(viewModel.categoryUiState.categories) { meal ->
+                items(viewModel.mealsUiState.meals) { meal ->
                     Card(
                         shape = RoundedCornerShape(8.dp),
                         elevation = 2.dp,
@@ -108,7 +75,6 @@ fun MealsCategoriesScreen(
                             )
                         }
                     }
->>>>>>> Stashed changes
                 }
             }
         }
